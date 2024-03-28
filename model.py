@@ -5,7 +5,7 @@ class Model(object):
     def __init__(self):
         self._NMax = 100             ## fondo scala
         self._Mmax = 6               ## numero max tentativi
-        self._Mrim = self._Mmax
+        self._Mrim = self._Mmax      ## numero tentativi rimanenti
         self._segreto = None
 
     @property
@@ -21,6 +21,15 @@ class Model(object):
     def segreto(self):
         return self._segreto
 
+    def difficoltaFacile(self):
+        self._Mmax = 2
+        self._NMax = 10
+    def difficoltaMedia(self):
+        self._Mmax = 5
+        self._NMax = 30
+    def difficoltaDifficile(self):
+        self._Mmax = 7
+        self._NMax = 100
 
     def inizializza(self):
         self._segreto = random.randint(1, self._NMax)
@@ -36,6 +45,6 @@ class Model(object):
         if tentativo == self._segreto:
             return self._Mrim, 0
         elif tentativo > self._segreto:
-            return self._Mrim, -1           ## devo ridurre il tentativo
+            return self._Mrim, -1           ## devo ridurre il tentativo, segreto più grande
         elif tentativo < self._segreto:
-            return self._Mrim, 1            ## devo aumentare il tentativo
+            return self._Mrim, 1            ## devo aumentare il tentativo, segreto più piccolo
